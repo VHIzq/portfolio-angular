@@ -10,19 +10,24 @@ export class ProductosService {
   cargando = true;
   productos: Producto[] = [];
 
-  baseUrl= 'https://portfolio-app-9fbd5-default-rtdb.firebaseio.com'
+  baseUrl= 'https://portfolio-app-9fbd5-default-rtdb.firebaseio.com';
+
   constructor( private http: HttpClient ) {
 
     this.cargarProductos();
   }
 
     private cargarProductos() {
+
       this.http.get(`${this.baseUrl}/productos_idx.json`)
         .subscribe( ( resp: any )  => {
           this.productos = resp;
-          console.log(resp);
           this.cargando = false;
         })
+    }
+
+    getProducto( id: string ) {
+      return this.http.get(`${this.baseUrl}/productos/${ id }.json `)
     }
 
 }
